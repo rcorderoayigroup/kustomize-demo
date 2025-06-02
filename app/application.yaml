@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mi-app-dev
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/rcorderoayigroup/kustomize-demo.git
+    path: overlays/dev
+    targetRevision: HEAD
+    kustomize:
+      namePrefix: dev-
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
